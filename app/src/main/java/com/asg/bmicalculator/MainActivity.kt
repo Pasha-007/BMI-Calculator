@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -22,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -32,8 +35,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            BmiCalculatorTheme {
-                BmiCalculatorScreen()
+            BmiCalculatorTheme(dynamicColor = false) {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    BmiCalculatorScreen()
+                }
             }
         }
     }
@@ -68,6 +76,7 @@ fun BmiCalculatorScreen(){
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(16.dp)
     ) {
         TextField(
@@ -103,7 +112,7 @@ fun BmiCalculatorScreen(){
             supportingText = {
                 if (heightError) {
                     Text(
-                        text = "Age is required (2-120)",
+                        text = "Height is required (50-300 cm)",
                         color = MaterialTheme.colorScheme.error
                     )
                 }
@@ -124,7 +133,7 @@ fun BmiCalculatorScreen(){
             supportingText = {
                 if (weightError) {
                     Text(
-                        text = "Age is required (2-120)",
+                        text = "Weight is required (10-500 kg)",
                         color = MaterialTheme.colorScheme.error
                     )
                 }
